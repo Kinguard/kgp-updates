@@ -1,6 +1,4 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: 
-Source: <url://example.com>
 
 Files: *
 Copyright: 2014 PA Nilsson <pa@openproducts.se>

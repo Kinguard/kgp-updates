@@ -1,3 +1,9 @@
+opi-updates (1.0.3) testing; urgency=low
+
+  * Moved cronjob link from crond.d to cron.daily 
+
+ -- PA Nilsson <pa@openproducts.se>  Thu, 26 Jun 2014 09:06:25 +0200
+
 opi-updates (1.0.2) testing; urgency=low
 
   * Fixed dirs in install scripts

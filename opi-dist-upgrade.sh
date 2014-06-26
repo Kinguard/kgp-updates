@@ -5,7 +5,9 @@ apt_output=$( /bin/mktemp -t )
 echo APT-GET Update was run: $( /bin/date +%c ) >> $apt_output
 echo >> $apt_output
 apt-get -q -y update > /dev/null
-apt-get -q -y dist-upgrade | grep -i installed >> $apt_output
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade | grep -i installed >> $apt_output
 
 if [ $? -ne 0 ]; then
 	tmpfile=$( /bin/mktemp -t )
@@ -26,4 +28,5 @@ if [ $? -ne 0 ]; then
 	echo $tmpfile
 	rm $tmpfile
 fi
+rm $apt_output
 exit 0

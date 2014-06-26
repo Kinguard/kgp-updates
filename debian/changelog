@@ -1,3 +1,9 @@
+opi-updates (1.0.4) testing; urgency=low
+
+  * Added --force-confnew option to always install maintainers config files without prompting 
+
+ -- PA Nilsson <pa@openproducts.se>  Thu, 26 Jun 2014 10:25:34 +0200
+
 opi-updates (1.0.3) testing; urgency=low
 
   * Moved cronjob link from crond.d to cron.daily 

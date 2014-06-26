@@ -1,3 +1,9 @@
+opi-updates (1.0.2) testing; urgency=low
+
+  * Fixed dirs in install scripts
+
+ -- PA Nilsson <pa@openproducts.se>  Thu, 26 Jun 2014 08:49:00 +0200
+
 opi-updates (1.0.1) testing; urgency=low
 
   * Removed unattended upgrades

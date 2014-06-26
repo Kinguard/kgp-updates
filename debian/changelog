@@ -1,0 +1,12 @@
+opi-updates (1.0.1) testing; urgency=low
+
+  * Removed unattended upgrades
+  * Moved dist-upgrade script and added symlink in cron.daily
+
+ -- PA Nilsson <pa@openproducts.se>  Thu, 26 Jun 2014 08:39:33 +0200
+
+opi-updates (1.0) testing; urgency=low
+
+  * Initial Files.
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 18 Jun 2014 09:11:00 +0200

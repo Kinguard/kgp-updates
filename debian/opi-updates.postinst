@@ -17,6 +17,7 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+config=/etc/opi/opi-update.conf
 
 case "$1" in
     configure)
@@ -25,6 +26,12 @@ case "$1" in
 		ln -s /usr/share/opi-updates/opi-dist-upgrade.sh /etc/cron.daily/opi-dist-upgrade
 	fi
 	chmod 740 /usr/share/opi-updates/opi-dist-upgrade.sh
+
+	if [ ! -e $config ]
+	then
+		echo "update=yes" > $config
+		chmod 644 $config
+	fi
 
     ;;
 

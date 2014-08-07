@@ -1,3 +1,9 @@
+opi-updates (1.0.5) vili; urgency=low
+
+  * Updated script not to run depending on config and mounted sd card
+
+ -- PA Nilsson <pa@openproducts.se>  Fri, 01 Aug 2014 19:54:43 +0200
+
 opi-updates (1.0.4) testing; urgency=low
 
   * Added --force-confnew option to always install maintainers config files without prompting 

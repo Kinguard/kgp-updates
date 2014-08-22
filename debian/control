@@ -7,7 +7,7 @@ Standards-Version: 3.9.4
 
 Package: opi-updates
 Architecture: all
-Depends: 
+Depends: anacron 
 Conflicts: 
 Description: OPI updates
  Sets up OPI unattended updates

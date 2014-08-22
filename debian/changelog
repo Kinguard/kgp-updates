@@ -1,3 +1,9 @@
+opi-updates (1.0.6) vili; urgency=low
+
+  * Added dep on anacron
+
+ -- PA Nilsson <pa@openproducts.se>  Fri, 22 Aug 2014 09:01:30 +0200
+
 opi-updates (1.0.5) vili; urgency=low
 
   * Updated script not to run depending on config and mounted sd card

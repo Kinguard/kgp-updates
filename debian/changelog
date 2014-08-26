@@ -1,3 +1,9 @@
+opi-updates (1.0.7) vili; urgency=low
+
+  * Removed script ouput in order not to trigger cron to send mail
+
+ -- PA Nilsson <pa@openproducts.se>  Tue, 26 Aug 2014 15:34:41 +0200
+
 opi-updates (1.0.6) vili; urgency=low
 
   * Added dep on anacron

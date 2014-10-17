@@ -1,3 +1,9 @@
+opi-updates (1.0.8) vili; urgency=low
+
+  * Add check for setup OC
+
+ -- Tor Krill <tor@openproducts.se>  Fri, 17 Oct 2014 17:14:49 +0200
+
 opi-updates (1.0.7) vili; urgency=low
 
   * Removed script ouput in order not to trigger cron to send mail

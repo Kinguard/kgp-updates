@@ -10,7 +10,6 @@ function report {
 	fi
 }
 
-
 if [ -e /etc/opi/opi-update.conf ]; then 
 	source /etc/opi/opi-update.conf
 	if [ $update != "yes" ]; then
@@ -22,12 +21,16 @@ else
 	exit 0
 fi
 
-
-
 sd_card=$(sed -n "s%\(${def_sdcard}\)\s${def_opiloc}.*%\1% p" /proc/mounts) # get sd-card device
 if [ -z $sd_card ] || [ ! -b $sd_card ]; then
 	# the backend must be defined and the sd-card device must exist and be mounted
 	report "update aborted, no sd card found or sd card is not unlocked"
+	exit 0
+fi
+
+if ! grep -iq "'installed'\s\+=>\s\+true" /usr/share/owncloud/config/config.php
+then
+	report "update aborted, OC not setup yet"
 	exit 0
 fi
 

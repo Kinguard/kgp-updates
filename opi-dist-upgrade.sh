@@ -34,6 +34,11 @@ then
 	exit 0
 fi
 
+report "Try free up memory"
+
+sync
+echo 3 > /proc/sys/vm/drop_caches
+
 report "Starting update"
 
 apt_output=$( /bin/mktemp -t )

@@ -1,3 +1,9 @@
+opi-updates (1.0.9) vili; urgency=low
+
+  * Try free memory before update
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 27 Nov 2014 15:44:37 +0100
+
 opi-updates (1.0.8) vili; urgency=low
 
   * Add check for setup OC

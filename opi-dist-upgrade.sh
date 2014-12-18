@@ -51,7 +51,7 @@ apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade | grep -i instal
 
 if [ $? -ne 0 ]; then
 	tmpfile=$( /bin/mktemp -t )
-	$recipient=root.localhost
+	recipient=root.localhost
 	echo "An error was encounteded when running the upgrade scripts on your opi." >> $tmpfile
 	echo >> $tmpfile
 

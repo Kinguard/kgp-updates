@@ -47,11 +47,10 @@ echo >> $apt_output
 apt-get -q -y update > /dev/null
 
 export DEBIAN_FRONTEND=noninteractive
-apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade | grep -i installed >> $apt_output
+apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade 2>&1 >> $apt_output
 
 if [ $? -ne 0 ]; then
 	tmpfile=$( /bin/mktemp -t )
-	recipient=root.localhost
 	echo "An error was encounteded when running the upgrade scripts on your opi." >> $tmpfile
 	echo >> $tmpfile
 

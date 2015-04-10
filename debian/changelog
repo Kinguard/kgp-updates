@@ -1,3 +1,10 @@
+opi-updates (1.0.12) vili; urgency=low
+
+  * Redirecting both std_out and std_err to logfile
+  * Printing entire apt-log on failure
+
+ -- PA Nilsson <pa@openproducts.se>  Fri, 10 Apr 2015 11:18:35 +0200
+
 opi-updates (1.0.11) vili; urgency=low
 
   * Printing content of the log file, not the name of the log file.

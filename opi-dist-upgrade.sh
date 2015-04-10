@@ -61,7 +61,7 @@ if [ $? -ne 0 ]; then
 	echo "If you can not understand this message, please contact support@openproducts.com" >> $tmpfile
 	echo >> $tmpfile
 
-	echo $tmpfile
+	cat $tmpfile
 	rm $tmpfile
 fi
 rm $apt_output

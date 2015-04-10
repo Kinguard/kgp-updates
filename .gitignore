@@ -2,3 +2,4 @@ debian/files
 debian/opi-updates.debhelper.log
 debian/opi-updates.substvars
 debian/opi-updates
+*~

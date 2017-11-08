@@ -1,3 +1,10 @@
+opi-updates (1.0.13) vili; urgency=medium
+
+  * Using kgp-notify for update status.
+  * Add support to notify user when reboot is requried. 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 08 Nov 2017 11:34:19 +0100
+
 opi-updates (1.0.12) vili; urgency=low
 
   * Redirecting both std_out and std_err to logfile

@@ -51,7 +51,7 @@ apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade 2>&1 >> $apt_out
 
 if [ $? -ne 0 ]; then
 	tmpfile=$( /bin/mktemp -t )
-	echo "An error was encounteded when running the upgrade scripts on your opi." >> $tmpfile
+	echo "An error was encounteded when running the upgrade scripts on your unit." >> $tmpfile
 	echo >> $tmpfile
 
 	cat $apt_output >> $tmpfile
@@ -60,8 +60,25 @@ if [ $? -ne 0 ]; then
 	echo "If you can not understand this message, please contact support@openproducts.com" >> $tmpfile
 	echo >> $tmpfile
 
-	cat $tmpfile
+	kgp-notifier -l "LOG_ERR" -m "${tmpfile}" -i "sysctrl"
+	#cat $tmpfile
 	rm $tmpfile
+else
+	# run cleanups
+	echo "Cleaning apt cache" >> $apt_output
+	apt-get clean 2>&1 >> $apt_output
+	clean_status=$?
+	apt-get autoremove 2>&1 >> $apt_output
+	remove_status=$?
+	if [[ $clean_status -ne 0 || $remove_status -ne 0 ]]; then
+		kgp-notifier -l "LOG_WARN" -m "${tmpfile}" -i "sysctrl"
+	fi
+	
 fi
+
 rm $apt_output
+
+if [[ -f /var/run/reboot-required ]]; then
+	kgp-notifier -l "LOG_NOTICE" -m "Core functions upgraded, reboot required." -i "sysctrl"
+fi
 exit 0

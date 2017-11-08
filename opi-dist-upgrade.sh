@@ -28,7 +28,7 @@ if [ -z $sd_card ] || [ ! -b $sd_card ]; then
 	exit 0
 fi
 
-if ! grep -iq "'installed'\s\+=>\s\+true" /usr/share/owncloud/config/config.php
+if ! grep -iq "'installed'\s\+=>\s\+true" /usr/share/nextcloud/config/config.php
 then
 	report "update aborted, OC not setup yet"
 	exit 0
@@ -47,31 +47,22 @@ echo >> $apt_output
 apt-get -q -y update > /dev/null
 
 export DEBIAN_FRONTEND=noninteractive
-apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade 2>&1 >> $apt_output
+apt-get -q -y -o Dpkg::Options::="--force-confnew" dist-upgrade &>> $apt_output
 
 if [ $? -ne 0 ]; then
-	tmpfile=$( /bin/mktemp -t )
-	echo "An error was encounteded when running the upgrade scripts on your unit." >> $tmpfile
-	echo >> $tmpfile
-
-	cat $apt_output >> $tmpfile
-	echo >> $tmpfile
-
-	echo "If you can not understand this message, please contact support@openproducts.com" >> $tmpfile
-	echo >> $tmpfile
-
-	kgp-notifier -l "LOG_ERR" -m "${tmpfile}" -i "sysctrl"
-	#cat $tmpfile
-	rm $tmpfile
+	apt_log="/var/log/dist-upgrade.log"
+	cp $apt_output $apt_log
+	kgp-notifier -l "LOG_ERR" -m "Upgrade failed, log in $apt_log. Please run upgrade manually from command line." -i "sysctrl"	
 else
 	# run cleanups
 	echo "Cleaning apt cache" >> $apt_output
-	apt-get clean 2>&1 >> $apt_output
+	apt-get clean &>> $apt_output
 	clean_status=$?
-	apt-get autoremove 2>&1 >> $apt_output
+	apt-get autoremove &>> $apt_output
 	remove_status=$?
 	if [[ $clean_status -ne 0 || $remove_status -ne 0 ]]; then
-		kgp-notifier -l "LOG_WARN" -m "${tmpfile}" -i "sysctrl"
+		cleanup_log="/var/log/apt-cleanup.log"
+		kgp-notifier -l "LOG_WARN" -m "apt clean up failed, see log in $cleanup_log" -i "sysctrl"
 	fi
 	
 fi

@@ -71,5 +71,6 @@ rm $apt_output
 
 if [[ -f /var/run/reboot-required ]]; then
 	kgp-notifier -l "LOG_NOTICE" -m "Core functions upgraded, reboot required." -i "sysctrl"
+	rm /var/run/reboot-required
 fi
 exit 0

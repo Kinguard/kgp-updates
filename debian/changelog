@@ -1,3 +1,9 @@
+opi-updates (1.0.14) vili; urgency=medium
+
+  * Remove required-reboot flag when the kgp-notifer has sent the message for required reboot. 
+
+ -- PA Nilsson <pa@openproducts.se>  Thu, 22 Mar 2018 11:41:05 +0100
+
 opi-updates (1.0.13) vili; urgency=medium
 
   * Using kgp-notify for update status.

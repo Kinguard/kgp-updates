@@ -17,7 +17,7 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-config=/etc/opi/opi-update.conf
+oldconfig=/etc/opi/opi-update.conf
 
 case "$1" in
     configure)
@@ -27,11 +27,24 @@ case "$1" in
 	fi
 	chmod 740 /usr/share/opi-updates/opi-dist-upgrade.sh
 
-	if [ ! -e $config ]
+	if ! enabled=$(kgp-sysinfo -p -c autoupdate -k enabled)
 	then
-		echo "update=yes" > $config
-		chmod 644 $config
+		# config is not in sysconfig, can we read if from old config?
+		if [ -e $oldconfig ]
+		then
+			if grep -q "update=yes" $oldconfig
+			then
+				kgp-sysinfo -b -w true -c autoupdate -k enabled
+			else
+				kgp-sysinfo -b -w false -c autoupdate -k enabled
+			fi
+		else
+			# nothing in old config either, just add it.
+			kgp-sysinfo -b -w true -c autoupdate -k enabled
+		fi
+
 	fi
+	rm -f $oldconfig
 
     ;;
 

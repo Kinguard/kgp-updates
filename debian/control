@@ -7,7 +7,8 @@ Standards-Version: 3.9.4
 
 Package: opi-updates
 Architecture: all
-Depends: anacron 
+Depends: anacron,
+	kinguard-utils (>=1.14)
 Conflicts: 
 Description: OPI updates
  Sets up OPI unattended updates

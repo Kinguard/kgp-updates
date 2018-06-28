@@ -10,27 +10,27 @@ function report {
 	fi
 }
 
-if [ -e /etc/opi/opi-update.conf ]; then 
-	source /etc/opi/opi-update.conf
-	if [ $update != "yes" ]; then
-		report "Updates not enabled"
+
+if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
+	if [[ $enabled -ne 1 ]] ; then
+		report "Updates disabled"
 		exit 0
 	fi
 else
-	report "No config file, exiting"
-	exit 0
+	kgp-notifier -q -l "LOG_DEBUG" -m "Missing 'autoupdate->enabled' parameter in 'sysconfig'." -i "sysctrl"
+	report "Missing 'autoupdate->enabled' parameter in 'sysconfig'"
+	exit 1
 fi
 
-sd_card=$(sed -n "s%\(${def_sdcard}\)\s${def_opiloc}.*%\1% p" /proc/mounts) # get sd-card device
-if [ -z $sd_card ] || [ ! -b $sd_card ]; then
-	# the backend must be defined and the sd-card device must exist and be mounted
-	report "update aborted, no sd card found or sd card is not unlocked"
+
+if locked=$(kgp-sysinfo -l); then
+	report "System locked, not possible to run updates."
 	exit 0
 fi
 
 if ! grep -iq "'installed'\s\+=>\s\+true" /usr/share/nextcloud/config/config.php
 then
-	report "update aborted, OC not setup yet"
+	report "Update aborted, OC not setup yet"
 	exit 0
 fi
 

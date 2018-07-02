@@ -1,6 +1,6 @@
 opi-updates (1.0.15) vili; urgency=medium
 
-  * Reading config from sysconfig.json 
+  * Migrate to and read config from sysconfig.json 
 
  -- PA Nilsson <pa@openproducts.se>  Thu, 28 Jun 2018 11:41:37 +0200
 

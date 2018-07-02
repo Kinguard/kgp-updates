@@ -17,7 +17,6 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-oldconfig=/etc/opi/opi-update.conf
 
 case "$1" in
     configure)
@@ -30,6 +29,7 @@ case "$1" in
 	if ! enabled=$(kgp-sysinfo -p -c autoupdate -k enabled)
 	then
 		# config is not in sysconfig, can we read if from old config?
+		oldconfig=/etc/opi/opi-update.conf
 		if [ -e $oldconfig ]
 		then
 			if grep -q "update=yes" $oldconfig

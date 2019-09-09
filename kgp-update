@@ -1,0 +1,109 @@
+#! /bin/sh
+
+#
+# Upgrade is performed as follows
+#
+# Each executable in the script folders
+#
+# first scripts/pre-update then scripts/update and lastly scripts/post-update
+#
+# are run in alphabetical order
+# executables should exit with:
+# 0 - upon success
+# 1 - upon none fatal error, upgrade could proceed
+# 2 - upon fatal error, upgrade is terminated
+#
+
+#
+# Mostly copy and pasted from the kinguard installer
+#
+
+# Find out where we are
+
+if cd "`dirname \"$0\"`"; then
+	SB=`pwd -P`
+	cd "$OLDPWD" || { log_crit "Failed to loctate base path"; exit 1; }
+else
+	log_crit "Failed to locate base path for installer, terminating"
+	exit 1
+fi
+
+LOGLEVEL=8
+
+. $SB/utils.sh
+
+log_debug "Path: ${SB} "
+
+#
+# Execute all executables in $1 dir
+#
+# Executable is called with remaining args on cmdline
+# ($2->)
+#
+run_dir()
+{
+	local SP=0	# Anything processed?
+	local DIR=$1
+	shift
+	if [ -d $DIR ]
+	then
+		log_debug "Run operations in $DIR"
+		for x in $DIR/*
+		do
+			if [ -x $x ]
+			then
+				log_debug "Process $x"
+				if $x ${@}
+				then
+					log_debug "Process successful"
+					SP=1
+				else
+					if [ $? -gt 1 ]
+					then
+						log_crit "Process $x reported irrecoverable error"
+						return 2
+					else
+						log_warn "Process $x reported problems but update could continue"
+					fi
+				fi
+			else
+				log_debug "Skip process of none executable $x"
+			fi
+		done
+	else
+		log_debug "Directory $DIR does not exist, skipping"
+	fi
+	return $SP
+}
+
+
+log_info "Running pre-upgrade executables"
+
+run_dir scripts/pre-update
+
+if [ $? -eq 2 ]
+then
+	log_err "Irrevocable error in pre upgrade phase"
+	return 2
+fi
+
+
+log_info "Running main upgrade executables"
+run_dir scripts/update
+
+if [ $? -eq 2 ]
+then
+	log_err "Irrevocable error in main upgrade phase"
+	return 2
+fi
+
+log_info "Running post-upgrade executables"
+run_dir scripts/post-update
+
+if [ $? -eq 2 ]
+then
+	log_err "Irrevocable error in post upgrade phase"
+	return 2
+fi
+
+

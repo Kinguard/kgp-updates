@@ -1,3 +1,9 @@
+opi-updates (1.0.18) vili; urgency=medium
+
+  * Add pre and post stages to upgrade
+
+ -- Tor Krill <tor@openproducts.se>  Mon, 09 Sep 2019 19:39:38 +0200
+
 opi-updates (1.0.17) vili; urgency=medium
 
   * Buster update

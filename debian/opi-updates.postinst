@@ -20,11 +20,14 @@ set -e
 
 case "$1" in
     configure)
-	if [ ! -e /etc/cron.daily/opi-dist-upgrade ]
+	# Make sure we don't have any dangling symlinks
+	if [  -e /etc/cron.daily/opi-dist-upgrade ]
 	then
-		ln -s /usr/share/opi-updates/opi-dist-upgrade.sh /etc/cron.daily/opi-dist-upgrade
+		rm /etc/cron.daily/opi-dist-upgrade
 	fi
-	chmod 740 /usr/share/opi-updates/opi-dist-upgrade.sh
+
+	ln -s /usr/share/opi-updates/kgp-update /etc/cron.daily/opi-dist-upgrade
+	chmod 740 /usr/share/opi-updates/kgp-update
 
 	if ! enabled=$(kgp-sysinfo -p -c autoupdate -k enabled)
 	then

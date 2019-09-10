@@ -21,10 +21,7 @@ set -e
 case "$1" in
     configure)
 	# Make sure we don't have any dangling symlinks
-	if [  -e /etc/cron.daily/opi-dist-upgrade ]
-	then
-		rm /etc/cron.daily/opi-dist-upgrade
-	fi
+	rm -f /etc/cron.daily/opi-dist-upgrade
 
 	ln -s /usr/share/opi-updates/kgp-update /etc/cron.daily/opi-dist-upgrade
 	chmod 740 /usr/share/opi-updates/kgp-update

@@ -1,3 +1,15 @@
+opi-updates (1.0.20) vili; urgency=medium
+
+  * Resolve home dir to sort out when started via symlink (cron)
+
+ -- Tor Krill <tor@openproducts.se>  Tue, 10 Sep 2019 09:25:10 +0200
+
+opi-updates (1.0.19) vili; urgency=medium
+
+  * Always remove symlink for cron
+
+ -- Tor Krill <tor@openproducts.se>  Mon, 09 Sep 2019 20:09:50 +0200
+
 opi-updates (1.0.18) vili; urgency=medium
 
   * Add pre and post stages to upgrade

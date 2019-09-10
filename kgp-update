@@ -18,18 +18,15 @@
 # Mostly copy and pasted from the kinguard installer
 #
 
-# Find out where we are
+# Find home
 
-if cd "`dirname \"$0\"`"; then
-	SB=`pwd -P`
-	cd "$OLDPWD" || { log_crit "Failed to loctate base path"; exit 1; }
-else
-	log_crit "Failed to locate base path for installer, terminating"
-	exit 1
-fi
+CURDIR=`realpath $0`
+SB=`dirname $CURDIR`
+
+cd $SB || { log_crit "Failed to loctate base path"; exit 1; }
 
 LOGLEVEL=8
-
+echo "SB: $SB"
 . $SB/utils.sh
 
 log_debug "Path: ${SB} "

@@ -1,3 +1,9 @@
+opi-updates (1.0.23) vili; urgency=medium
+
+  * Only migrate NC on unlocked system
+
+ -- Tor Krill <tor@openproducts.se>  Wed, 18 Sep 2019 12:00:16 +0200
+
 opi-updates (1.0.22) vili; urgency=medium
 
   * Fix typo in nc-migrate script

@@ -16,7 +16,7 @@
 if [ $(kgp-sysinfo -l) -eq 1 ]
 then
 	echo "System locked, not performing migration"
-	#exit 0
+	exit 0
 fi
 
 TMP_NC="$(dpkg-query -W -f '${Package} ${db:Status-Abbrev} ${version}\n' 'nextcloud*')"

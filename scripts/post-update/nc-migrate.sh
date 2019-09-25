@@ -63,3 +63,22 @@ do
 		apt-get -q -y -o Dpkg::Options::="--force-confnew" install $V
 	fi
 done
+
+# Cleanup
+ALL_NC="$(dpkg-query -W -f '${Package} ${db:Status-Abbrev} ${version}\n' 'nextcloud*')"
+
+while read -r line
+do
+	TNC=$(echo $line | cut -f1 -d ' ')
+	TNCS=$(echo $line | cut -f2 -d ' ')
+
+	# Todo, only purge removed versions, ie "rc" status?
+	if [ $TNCS != "ii" ]
+	then
+		TCV=$(echo $line | cut -f3 -d' ')
+		echo "Purging not fully installed $TNC version $TCV"
+		apt-get -q -y purge $TNC
+	fi
+done <<< "$ALL_NC"
+
+

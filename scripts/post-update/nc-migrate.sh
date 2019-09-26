@@ -84,7 +84,7 @@ do
 	TNCS=$(echo $line | cut -f2 -d ' ')
 
 	# Todo, only purge removed versions, ie "rc" status?
-	if [ $TNCS != "rc" ]
+	if [ $TNCS = "rc" ]
 	then
 		TCV=$(echo $line | cut -f3 -d' ')
 		echo "Purging removed nextcloud: $TNC version: $TCV"

@@ -1,3 +1,10 @@
+opi-updates (1.0.25) vili; urgency=medium
+
+  * nc-migrate: Only purge removed instances of nextcloud
+  * nc-migrate: Only run if auto-updates enabled
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 26 Sep 2019 08:58:42 +0200
+
 opi-updates (1.0.24) vili; urgency=medium
 
   * nc-migrate, purge old versions cleaning out conf-files etc.

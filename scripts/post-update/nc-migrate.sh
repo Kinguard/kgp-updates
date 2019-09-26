@@ -19,6 +19,17 @@ then
 	exit 0
 fi
 
+# Dont try migrate if updates disabled
+if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
+	if [[ $enabled -ne 1 ]] ; then
+		echo "Updates disabled, terminating"
+		exit 0
+	fi
+else
+	echo "Missing 'autoupdate->enabled' parameter in 'sysconfig'"
+	exit 0
+fi
+
 TMP_NC="$(dpkg-query -W -f '${Package} ${db:Status-Abbrev} ${version}\n' 'nextcloud*')"
 
 while read -r line
@@ -73,10 +84,10 @@ do
 	TNCS=$(echo $line | cut -f2 -d ' ')
 
 	# Todo, only purge removed versions, ie "rc" status?
-	if [ $TNCS != "ii" ]
+	if [ $TNCS != "rc" ]
 	then
 		TCV=$(echo $line | cut -f3 -d' ')
-		echo "Purging not fully installed $TNC version $TCV"
+		echo "Purging removed nextcloud: $TNC version: $TCV"
 		apt-get -q -y purge $TNC
 	fi
 done <<< "$ALL_NC"

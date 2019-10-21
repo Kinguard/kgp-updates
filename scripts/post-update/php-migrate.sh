@@ -56,8 +56,8 @@ fi
 # We should have a properly installed php7.3 and some form of php 7.0 as well.
 # Remove all 7.0 ones.
 
-echo "Purging php 7.0 (Not really yet)"
-#dpkg -l | grep php7.0 | cut -d' ' -f 3 | xargs apt -y purge
+echo "Purging php 7.0"
+dpkg -l | grep php7.0 | cut -d' ' -f 3 | xargs apt -y purge
 
 echo "php version check, completed"
 

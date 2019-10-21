@@ -1,3 +1,9 @@
+opi-updates (1.0.27) vili; urgency=medium
+
+  * Add php purge script to remove php7.0 if php7.3 available
+
+ -- Tor Krill <tor@openproducts.se>  Mon, 21 Oct 2019 12:15:55 +0200
+
 opi-updates (1.0.26) vili; urgency=medium
 
   * Really only purge removed instances

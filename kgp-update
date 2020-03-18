@@ -20,6 +20,14 @@
 
 # Find home
 
+# Make sure update not already in progress
+LOCKFILE="/var/run/lock/kgp-updates.lock"
+
+# Get fd to backup lock file
+exec {lock_fd}>"${LOCKFILE}"
+flock -n "$lock_fd" || { report "Unable to start upgrade, upgrade already running."; exit 0 ;}
+
+
 CURDIR=`realpath $0`
 SB=`dirname $CURDIR`
 

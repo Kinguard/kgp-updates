@@ -1,3 +1,9 @@
+opi-updates (1.0.29) vili; urgency=medium
+
+  * Add lock to avoid duplicate instances running
+
+ -- Tor Krill <tor@openproducts.se>  Wed, 18 Mar 2020 16:13:19 +0100
+
 opi-updates (1.0.28) vili; urgency=medium
 
   * Enable php purge, commented out before

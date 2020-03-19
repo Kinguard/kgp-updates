@@ -1,3 +1,9 @@
+opi-updates (1.0.31) vili; urgency=medium
+
+  * Add notification during upgrade
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 19 Mar 2020 11:22:47 +0100
+
 opi-updates (1.0.30) vili; urgency=medium
 
   * Use bash instead of sh

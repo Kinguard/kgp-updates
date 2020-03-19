@@ -1,3 +1,10 @@
+opi-updates (1.0.30) vili; urgency=medium
+
+  * Use bash instead of sh
+  * Update logging when locking
+
+ -- Tor Krill <tor@openproducts.se>  Wed, 18 Mar 2020 16:26:42 +0100
+
 opi-updates (1.0.29) vili; urgency=medium
 
   * Add lock to avoid duplicate instances running

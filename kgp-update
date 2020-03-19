@@ -20,6 +20,7 @@
 
 # Find home
 
+ISSUER="Update System"
 
 CURDIR=`realpath $0`
 SB=`dirname $CURDIR`
@@ -38,6 +39,19 @@ LOCKFILE="/var/run/lock/kgp-updates.lock"
 # Get fd to backup lock file
 exec {lock_fd}>"${LOCKFILE}"
 flock -n "$lock_fd" || { log_warn "Unable to start upgrade, upgrade already running"; exit 0 ;}
+
+# Send notification on update started
+msgid=$(kgp-notifier -l LOG_NOTICE -m "Update in progress" -i "${ISSUER}")
+log_debug "MSG id: $msgid"
+
+terminate()
+{
+	log_debug "Terminate updater with exit value $1"
+	# acknowledge the "start message"
+	msgcount=$(kgp-notifier -a $msgid)
+
+	exit $1
+}
 
 #
 # Execute all executables in $1 dir
@@ -89,7 +103,7 @@ run_dir scripts/pre-update
 if [ $? -eq 2 ]
 then
 	log_err "Irrevocable error in pre upgrade phase"
-	return 2
+	terminate 2
 fi
 
 
@@ -99,7 +113,7 @@ run_dir scripts/update
 if [ $? -eq 2 ]
 then
 	log_err "Irrevocable error in main upgrade phase"
-	return 2
+	terminate 2
 fi
 
 log_info "Running post-upgrade executables"
@@ -108,7 +122,8 @@ run_dir scripts/post-update
 if [ $? -eq 2 ]
 then
 	log_err "Irrevocable error in post upgrade phase"
-	return 2
+	terminate 2
 fi
 
-
+# All OK and we are done
+terminate 0

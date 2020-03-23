@@ -28,7 +28,8 @@ SB=`dirname $CURDIR`
 cd $SB || { log_crit "Failed to loctate base path"; exit 1; }
 
 LOGLEVEL=8
-echo "SB: $SB"
+export LOGLEVEL
+
 . $SB/utils.sh
 
 log_debug "Path: ${SB} "
@@ -98,7 +99,7 @@ run_dir()
 
 log_info "Running pre-upgrade executables"
 
-run_dir scripts/pre-update
+run_dir scripts/pre-update "$SB"
 
 if [ $? -eq 2 ]
 then
@@ -108,7 +109,7 @@ fi
 
 
 log_info "Running main upgrade executables"
-run_dir scripts/update
+run_dir scripts/update "$SB"
 
 if [ $? -eq 2 ]
 then
@@ -117,7 +118,7 @@ then
 fi
 
 log_info "Running post-upgrade executables"
-run_dir scripts/post-update
+run_dir scripts/post-update "$SB"
 
 if [ $? -eq 2 ]
 then

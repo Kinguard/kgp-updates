@@ -10,23 +10,24 @@
 # the opi-update one.
 #
 
+. $1/utils.sh
 
 # Check if system locked, then we dont do this.
 
 if [ $(kgp-sysinfo -l) -eq 1 ]
 then
-	echo "System locked, not performing migration"
+	log_notice "System locked, not performing migration"
 	exit 0
 fi
 
 # Dont try migrate if updates disabled
 if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
 	if [[ $enabled -ne 1 ]] ; then
-		echo "Updates disabled, terminating"
+		log_notice "Updates disabled, terminating"
 		exit 0
 	fi
 else
-	echo "Missing 'autoupdate->enabled' parameter in 'sysconfig'"
+	log_warn "Missing 'autoupdate->enabled' parameter in 'sysconfig'"
 	exit 0
 fi
 
@@ -41,13 +42,13 @@ do
 	then
 		CURR_NC=$CNC
 		NCV=$(echo $line | cut -f3 -d' ')
-		echo "Found installed $CURR_NC version $NCV"
+		log_debug "Found installed $CURR_NC version $NCV"
 	fi
 done <<< "$TMP_NC"
 
 if [ -z "$CURR_NC" ]
 then
-	echo "Nextcloud seems not to be properly installed??"
+	log_err "Nextcloud seems not to be properly installed??"
 	exit 1
 fi
 
@@ -62,7 +63,7 @@ export DEBIAN_FRONTEND=noninteractive
 FOUND=0
 for V in $AVNC
 do
-	echo "Process $V"
+	log_debug "Process $V"
 	if [ $V = $CURR_NC ]
 	then
 		FOUND=1
@@ -70,7 +71,7 @@ do
 	fi
 	if [ $FOUND -eq 1 ]
 	then
-		echo "Install $V"
+		log_info "Install $V"
 		apt-get -q -y -o Dpkg::Options::="--force-confnew" install $V
 	fi
 done
@@ -87,7 +88,7 @@ do
 	if [ $TNCS = "rc" ]
 	then
 		TCV=$(echo $line | cut -f3 -d' ')
-		echo "Purging removed nextcloud: $TNC version: $TCV"
+		log_info "Purging removed nextcloud: $TNC version: $TCV"
 		apt-get -q -y purge $TNC
 	fi
 done <<< "$ALL_NC"

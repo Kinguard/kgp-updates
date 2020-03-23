@@ -80,44 +80,50 @@ alert()
 
 }
 
+_output()
+{
+	#echo "KGP updater ($1): $2"
+	logger --id "KGP updater ($1):" -p daemon.$1 "$2"
+}
+
 _log_debug()
 {
-	echo "kgp-update, debug: $1"
+	_output debug "$1"
 }
 
 _log_info()
 {
-	echo "kgp-update, info: $1"
+	_output info "$1"
 }
 
 _log_notice()
 {
-	echo "kgp-update, notice: $1"
+	_output notice "$1"
 }
 
 _log_warn()
 {
-	echo "kgp-update, warning: $1"
+	_output warning "$1"
 }
 
 _log_err()
 {
-	echo "kgp-update, error: $1"
+	_output err "$1"
 }
 
 _log_crit()
 {
-	echo "kgp-update, critical: $1"
+	_output crit "$1"
 }
 
 _log_alert()
 {
-	echo "kgp-update, alert: $1"
+	_output alert "$1"
 }
 
 _log_emerg()
 {
-	echo "kgp-update, emergency: $1"
+	_output emerg "$1"
 }
 
 #

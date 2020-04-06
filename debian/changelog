@@ -1,3 +1,10 @@
+opi-updates (1.0.32) vili; urgency=medium
+
+  * Update logging
+  * Start update on unlocked system
+
+ -- Tor Krill <tor@openproducts.se>  Mon, 23 Mar 2020 11:09:21 +0100
+
 opi-updates (1.0.31) vili; urgency=medium
 
   * Add notification during upgrade

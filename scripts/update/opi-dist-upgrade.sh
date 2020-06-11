@@ -56,12 +56,13 @@ if [ $? -ne 0 ]; then
 else
 	# run cleanups
 	echo "Cleaning apt cache" >> $apt_output
-	apt-get clean &>> $apt_output
+	apt-get -q -y clean &>> $apt_output
 	clean_status=$?
-	apt-get autoremove &>> $apt_output
+	apt-get -q -y autoremove &>> $apt_output
 	remove_status=$?
 	if [[ $clean_status -ne 0 || $remove_status -ne 0 ]]; then
 		cleanup_log="/var/log/apt-cleanup.log"
+		cp $apt_output $cleanup_log
 		kgp-notifier -l "LOG_WARNING" -m "apt clean up failed, see log in $cleanup_log" -i "sysctrl"
 	fi
 	

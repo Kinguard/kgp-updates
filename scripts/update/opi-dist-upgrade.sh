@@ -62,7 +62,7 @@ else
 	remove_status=$?
 	if [[ $clean_status -ne 0 || $remove_status -ne 0 ]]; then
 		cleanup_log="/var/log/apt-cleanup.log"
-		kgp-notifier -l "LOG_WARN" -m "apt clean up failed, see log in $cleanup_log" -i "sysctrl"
+		kgp-notifier -l "LOG_WARNING" -m "apt clean up failed, see log in $cleanup_log" -i "sysctrl"
 	fi
 	
 fi

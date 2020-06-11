@@ -1,3 +1,9 @@
+opi-updates (1.0.33) vili; urgency=medium
+
+  * Use correct loglevel when reporting failed cleanup closes #594
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 11 Jun 2020 11:00:12 +0200
+
 opi-updates (1.0.32) vili; urgency=medium
 
   * Update logging

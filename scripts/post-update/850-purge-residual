@@ -1,0 +1,21 @@
+#! /bin/bash
+
+. $1/utils.sh
+
+TMPLOG=$(mktemp)
+LOGTARGET="/var/log/kgp-residual-error.txt"
+log_debug "Purge residual packages, start"
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get -q -y remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') &>> $TMPLOG
+
+if [ $? -ne 0 ]
+then
+	log_err "Failed to purge residual packages, more info in ${LOGTARGET}"
+	kgp-notifier -l "LOG_WARNING" -m "Purge package left overs failed, see log in ${LOGTARGET}" -i "kgp-upgrade"
+	cp $TMPLOG $LOGTARGET
+fi
+
+rm $TMPLOG
+
+log_debug "Purge residual packages, completed"

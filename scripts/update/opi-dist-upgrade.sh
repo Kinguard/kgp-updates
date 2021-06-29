@@ -32,10 +32,17 @@ then
 	exit 0
 fi
 
-log_debug "Try free up memory"
 
-sync
-echo 3 > /proc/sys/vm/drop_caches
+if [ $(kgp-sysinfo -pi Opi) -eq 1 -o $(kgp-sysinfo -pi Armada) -eq 1 ]
+then
+	log_debug "Try free up memory"
+
+	sync
+	echo 3 > /proc/sys/vm/drop_caches
+
+else
+	log_debug "None OP device, assume no memory constraint"
+fi
 
 log_info "Starting update"
 

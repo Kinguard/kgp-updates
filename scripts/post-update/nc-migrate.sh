@@ -10,7 +10,8 @@
 # the opi-update one.
 #
 
-. $1/utils.sh
+LOGNAME="${LOGNAME}: NC Migration"
+source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
 
 # Check if system locked, then we dont do this.
 
@@ -22,9 +23,15 @@ fi
 
 # Dont try migrate if updates disabled
 if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
-	if [[ $enabled -ne 1 ]] ; then
-		log_notice "Updates disabled, terminating"
-		exit 0
+	if [[ $enabled -ne 1 ]]
+	then
+		if [ -v FORCE_UPGRADE ] && [ $FORCE_UPGRADE = "yes" ]
+		then
+			log_notice "Upgrade disabled but force requested, proceeding"
+		else
+			log_notice "Updates disabled, terminating"
+			exit 0
+		fi
 	fi
 else
 	log_warn "Missing 'autoupdate->enabled' parameter in 'sysconfig'"

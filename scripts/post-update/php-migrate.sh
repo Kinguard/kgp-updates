@@ -11,7 +11,8 @@
 # Check if system locked, then we dont do this.
 
 
-. $1/utils.sh
+LOGNAME="${LOGNAME}: php migration"
+source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
 
 log_debug "php version check, start"
 
@@ -24,8 +25,13 @@ fi
 # Dont try migrate if updates disabled
 if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
 	if [[ $enabled -ne 1 ]] ; then
-		log_info "Updates disabled, terminating"
-		exit 0
+		if [ -v FORCE_UPGRADE ] && [ $FORCE_UPGRADE = "yes" ]
+		then
+			log_notice "Upgrade disabled but force requested, proceeding"
+		else
+			log_info "Updates disabled, terminating"
+			exit 0
+		fi
 	fi
 else
 	log_warn "Missing 'autoupdate->enabled' parameter in 'sysconfig'"

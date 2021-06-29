@@ -1,6 +1,7 @@
 #! /bin/bash
 
-. $1/utils.sh
+LOGNAME="${LOGNAME}: Residual purge"
+source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
 
 TMPLOG=$(mktemp)
 LOGTARGET="/var/log/kgp-residual-error.txt"

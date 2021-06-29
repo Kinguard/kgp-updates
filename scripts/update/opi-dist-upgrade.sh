@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOGNAME="OPI Distupgrade"
+LOGNAME="${LOGNAME}: OPI Distupgrade"
 source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -10,9 +10,15 @@ def_opiloc="/var/opi"
 log_notice "Starting up"
 
 if enabled=$(kgp-sysinfo -p -c autoupdate -k enabled) ; then
-	if [[ $enabled -ne 1 ]] ; then
-		log_notice "Updates disabled"
-		exit 0
+	if [[ $enabled -ne 1 ]]
+	then
+		if [ -v FORCE_UPGRADE ] && [ $FORCE_UPGRADE = "yes" ]
+		then
+			log_notice "Upgrade disabled but force requested, proceeding"
+		else
+			log_notice "Updates disabled, terminating"
+			exit 0
+		fi
 	fi
 else
 	kgp-notifier -q -l "LOG_DEBUG" -m "Missing 'autoupdate->enabled' parameter in 'sysconfig'." -i "sysctrl"

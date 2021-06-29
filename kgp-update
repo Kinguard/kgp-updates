@@ -22,6 +22,7 @@
 
 LOGNAME="Update System"
 LOGLEVEL=8
+export LOGNAME
 export LOGLEVEL
 
 source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
@@ -31,6 +32,7 @@ SB=`dirname $CURDIR`
 
 cd $SB || { log_crit "Failed to loctate base path"; exit 1; }
 
+#export FORCE_UPGRADE="yes"
 
 log_debug "Path: ${SB} "
 

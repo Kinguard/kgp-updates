@@ -8,6 +8,7 @@ Standards-Version: 3.9.4
 Package: opi-updates
 Architecture: all
 Depends: anacron,
+	kgp-bashlibrary,
 	kinguard-utils (>=1.16)
 Conflicts: 
 Description: OPI updates

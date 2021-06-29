@@ -20,24 +20,24 @@
 
 # Find home
 
-ISSUER="Update System"
+LOGNAME="Update System"
+LOGLEVEL=8
+export LOGLEVEL
+
+source /usr/share/kgp-bashlibrary/scripts/kgp-logging.sh
 
 CURDIR=`realpath $0`
 SB=`dirname $CURDIR`
 
 cd $SB || { log_crit "Failed to loctate base path"; exit 1; }
 
-LOGLEVEL=8
-export LOGLEVEL
-
-. $SB/utils.sh
 
 log_debug "Path: ${SB} "
 
 # Make sure update not already in progress
 LOCKFILE="/var/run/lock/kgp-updates.lock"
 
-# Get fd to backup lock file
+# Get fd to upgrade lock file
 exec {lock_fd}>"${LOCKFILE}"
 flock -n "$lock_fd" || { log_warn "Unable to start upgrade, upgrade already running"; exit 0 ;}
 

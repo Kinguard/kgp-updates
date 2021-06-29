@@ -21,7 +21,7 @@
 # Find home
 
 LOGNAME="Update System"
-LOGLEVEL=8
+LOGLEVEL=6
 export LOGNAME
 export LOGLEVEL
 
@@ -32,7 +32,52 @@ SB=`dirname $CURDIR`
 
 cd $SB || { log_crit "Failed to loctate base path"; exit 1; }
 
-#export FORCE_UPGRADE="yes"
+usage ()
+{
+	cat <<EOF
+Usage: $(basename "${BASH_SOURCE[0]}") [-f]
+
+Perform a system upgrade
+
+Available options:
+
+-h	Print this help and exit
+-v	Print script debug info
+-f	Force upgrade, try to upgrade even if config says disabled
+EOF
+}
+
+exit_fail()
+{
+	echo $@
+	log_err "$@"
+	exit 1
+}
+
+# parse cmdline
+OPTIND=1
+while getopts  ":hvf" opt
+do
+	case "$opt" in
+	h)
+		usage
+		exit 0
+		;;
+	v)
+		LOGLEVEL=8
+		;;
+	f)
+		export FORCE_UPGRADE="yes"
+		;;
+	:)
+		exit_fail "Error -${OPTARG} requires an argument."
+		;;
+	?)
+		usage
+		exit 0
+		;;
+	esac
+done
 
 log_debug "Path: ${SB} "
 

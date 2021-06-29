@@ -2,4 +2,3 @@ scripts/pre-update	/usr/share/opi-updates/scripts/
 scripts/update		/usr/share/opi-updates/scripts/
 scripts/post-update	/usr/share/opi-updates/scripts/
 kgp-update			/usr/share/opi-updates/
-utils.sh			/usr/share/opi-updates/

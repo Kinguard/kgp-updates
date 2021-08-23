@@ -1,3 +1,16 @@
+opi-updates (1.0.37~test1) vili; urgency=medium
+
+  * Dont try package removed utils.sh
+
+ -- Tor Krill <tor@openproducts.se>  Tue, 29 Jun 2021 19:03:33 +0200
+
+opi-updates (1.0.36) vili; urgency=medium
+
+  * Use kgp-bashlibrary for logging
+  * Add command line parsing and add force update option
+
+ -- Tor Krill <tor@openproducts.se>  Tue, 29 Jun 2021 18:59:52 +0200
+
 opi-updates (1.0.35) vili; urgency=medium
 
   * Add cleanup script to remove residual, (rc), package leftovers

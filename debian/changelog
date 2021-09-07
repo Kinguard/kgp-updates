@@ -1,3 +1,9 @@
+opi-updates (1.0.37) vili; urgency=medium
+
+  * Buster release
+
+ -- Tor Krill <tor@openproducts.se>  Tue, 07 Sep 2021 11:05:16 +0200
+
 opi-updates (1.0.37~test1) vili; urgency=medium
 
   * Dont try package removed utils.sh

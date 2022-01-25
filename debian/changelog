@@ -1,3 +1,9 @@
+opi-updates (1.0.38~test1) vigrid; urgency=medium
+
+  * Bullseye build
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 25 Nov 2021 07:59:23 +0100
+
 opi-updates (1.0.37) vili; urgency=medium
 
   * Buster release

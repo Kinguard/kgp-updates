@@ -1,3 +1,9 @@
+opi-updates (1.0.39~test1) vigrid; urgency=medium
+
+  * Bump version since buster version bumped to 1.0.38
+
+ -- Tor Krill <tor@openproducts.se>  Fri, 28 Jan 2022 15:42:42 +0100
+
 opi-updates (1.0.38~test1) vigrid; urgency=medium
 
   * Bullseye build
